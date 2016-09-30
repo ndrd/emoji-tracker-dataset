@@ -27,14 +27,14 @@ puts terms.to_s
 
 @g_tracked, @g_last_tracked = 0,0
 
-def get_tweets(terms.join(','))
+def get_tweets(terms)
 	puts "starting at: #{Time.now} for terms: " +  terms.to_s 
 	@tracked,@no_emojis,@has_emojis,@total = 0,0,0,0
 
 	@tweets_with_emojis = []
 	@tweets_without_emojis = []
 
-	@client.filter(track: [terms].join(',')) do |status|
+	@client.filter(track: terms.join(',')) do |status|
 	    next if status.retweet?
 	    language =  CLD.detect_language(status.text)
 	    isSpanish = false
@@ -45,7 +45,6 @@ def get_tweets(terms.join(','))
 	    end
 
 	    next if not isSpanish
-	    puts status.text
 		
 		emojis = EmojiData.scan(status.text)
 		next if emojis.length == 0
