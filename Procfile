@@ -1,1 +1,1 @@
-feeder: bundle exec ruby feeder.rb
+feeder: ruby my-feeder.rb
